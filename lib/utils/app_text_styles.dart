@@ -54,10 +54,17 @@ class AppTextStyles {
     color: Colors.white,
   );
 
-  static final TextStyle textStyle8 = TextStyle(
+  static final TextStyle  textStyle8 = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 20.r,
     height: 24 / 20,
+    color: Colors.white,
+  );
+
+  static final TextStyle textStyle9 = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 12.r,
+    height: 14 / 12,
     color: Colors.white,
   );
 }

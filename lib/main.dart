@@ -38,18 +38,67 @@ CustomTransitionPage buildPageWithDefaultTransition({
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _router = GoRouter(
+      routes: [
+        ShellRoute(
+          pageBuilder: (context, state, child) {
+            return buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: NavigationScreen(child: child),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: '/',
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: const LevelsScreen(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'lessons',
+                  pageBuilder: (context, state) {
+                    return buildPageWithDefaultTransition(
+                      context: context,
+                      state: state,
+                      child: const LessonsScreen(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PremiumScreen(),
+      routerConfig: _router,
     );
   }
 }
