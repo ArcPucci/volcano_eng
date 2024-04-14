@@ -3,34 +3,34 @@ import 'package:volcano_eng/models/models.dart';
 const icons = 'assets/png/icons';
 
 final List<TabBarItem> tabBarItems = [
-  TabBarItem(
+  const TabBarItem(
     id: 0,
     title: 'Main',
     path: '/',
     asset: '$icons/main.png',
   ),
-  TabBarItem(
+  const TabBarItem(
     id: 1,
     title: 'Quizzes',
-    path: '/',
+    path: '/quizzes',
     asset: '$icons/game.png',
   ),
-  TabBarItem(
+  const TabBarItem(
     id: 2,
     title: 'Exam',
-    path: '/',
+    path: '/exam',
     asset: '$icons/direct_box.png',
   ),
-  TabBarItem(
+  const TabBarItem(
     id: 3,
     title: 'Materials',
-    path: '/',
+    path: '/materials',
     asset: '$icons/book2.png',
   ),
-  TabBarItem(
+  const TabBarItem(
     id: 4,
     title: 'Settings',
-    path: '/',
+    path: '/settings',
     asset: '$icons/settings.png',
   ),
 ];

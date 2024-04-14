@@ -67,4 +67,34 @@ class AppTextStyles {
     height: 14 / 12,
     color: Colors.white,
   );
+
+  static final TextStyle textStyle10 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 32.r,
+    height: 38 / 32,
+    color: AppTheme.ginger,
+  );
+
+  static final TextStyle textStyle11 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 32.r,
+    height: 48 / 32,
+    color: AppTheme.emerald,
+  );
+
+  static final TextStyle dialogTitle = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 17.r,
+    height: 22 / 17,
+    letterSpacing: -0.41,
+    color: Colors.white,
+  );
+
+  static final TextStyle dialogContent = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 13.r,
+    height: 16 / 13,
+    letterSpacing: -0.08,
+    color: Colors.white,
+  );
 }

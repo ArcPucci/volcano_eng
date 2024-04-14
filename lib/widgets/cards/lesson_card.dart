@@ -1,84 +1,77 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/utils/utils.dart';
+import 'package:volcano_eng/widgets/widgets.dart';
 
 class LessonCard extends StatelessWidget {
-  const LessonCard({super.key, this.onTap});
+  const LessonCard({
+    super.key,
+    this.onTap,
+    required this.lesson,
+    required this.index,
+  });
 
   final VoidCallback? onTap;
+  final Lesson lesson;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: 343.w,
-            height: 180.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppTheme.darkBlue3.withOpacity(0.1),
-              border: Border.all(
-                width: 1.sp,
-                color: Colors.white.withOpacity(0.05),
+    return GestureDetector(
+      onTap: onTap,
+      child: BlurredBox(
+        height: 180.h,
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/png/icons/next.png',
+                width: 34.r,
+                height: 34.r,
+                fit: BoxFit.contain,
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 10.h,
-            ),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    'assets/png/example2.png',
-                    width: 323.w,
-                    height: 91.h,
-                    fit: BoxFit.fill,
+            Positioned.fill(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      lesson.image,
+                      width: 323.w,
+                      height: 91.h,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-                SizedBox(height: 10.h),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Types of Volcanoes',
-                            style: AppTextStyles.textStyle8,
+                  SizedBox(height: 10.h),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          lesson.name,
+                          style: AppTextStyles.textStyle8,
+                        ),
+                        Text(
+                          '${numerators[index]} lesson',
+                          style: AppTextStyles.textStyle2.copyWith(
+                            color: AppTheme.ginger,
+                            fontStyle: FontStyle.italic,
                           ),
-                          Text(
-                            '1st lesson',
-                            style: AppTextStyles.textStyle2.copyWith(
-                              color: AppTheme.ginger,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Image.asset(
-                        'assets/png/icons/next.png',
-                        width: 34.r,
-                        height: 34.r,
-                        fit: BoxFit.contain,
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

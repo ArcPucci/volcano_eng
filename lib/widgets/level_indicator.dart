@@ -19,7 +19,7 @@ class LevelIndicator extends StatelessWidget {
         children: List.generate(
           3,
           (index) {
-            final achieved = index <= level;
+            final achieved = (index + 1) <= level;
             return Container(
               width: 13.w,
               height: (index + 2) * 12.h,

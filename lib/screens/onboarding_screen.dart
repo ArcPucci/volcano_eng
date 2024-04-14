@@ -35,25 +35,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 30.h),
-                  SizedBox(
-                    width: 343.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(
-                        2,
-                        (index) {
-                          double opacity = currentPage < index ? 0.4 : 1;
-                          return Container(
-                            width: 168.w,
-                            height: 3.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: Colors.white.withOpacity(opacity),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                  CustomIndicator(
+                    total: 2,
+                    currentIndex: currentPage,
                   ),
                   SizedBox(height: 12.h),
                   Expanded(

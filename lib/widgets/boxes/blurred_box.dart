@@ -7,12 +7,14 @@ import 'package:volcano_eng/utils/utils.dart';
 class BlurredBox extends StatelessWidget {
   const BlurredBox({
     super.key,
-    required this.height,
+    this.height,
     required this.child,
+    this.padding,
   });
 
   final Widget child;
-  final double height;
+  final double? height;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class BlurredBox extends StatelessWidget {
               color: Colors.white.withOpacity(0.05),
             ),
           ),
+          padding: padding,
           child: child,
         ),
       ),

@@ -2,77 +2,99 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class LevelCard extends StatelessWidget {
-  const LevelCard({super.key, this.onTap});
+  const LevelCard({
+    super.key,
+    this.onTap,
+    required this.level,
+    this.open = false,
+  });
 
+  final Level level;
   final VoidCallback? onTap;
+  final bool open;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: 343.w,
-            height: 257.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppTheme.darkBlue3.withOpacity(0.1),
-              border: Border.all(
-                width: 1.sp,
-                color: Colors.white.withOpacity(0.05),
+    return GestureDetector(
+      onTap: onTap,
+      child: BlurredBox(
+        padding: EdgeInsets.symmetric(
+          horizontal: 10.w,
+          vertical: 10.h,
+        ),
+        child: Column(
+          children: [
+            Opacity(
+              opacity: open ? 1 : 0.5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  level.asset,
+                  width: 323.w,
+                  height: 144.h,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 10.h,
-            ),
-            child: Column(
+            SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    'assets/png/example.png',
-                    width: 323.w,
-                    height: 144.h,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                Expanded(
-                  child: Row(
+                SizedBox(
+                  width: 160.sp,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Elementary\nvolcano level',
-                            style: AppTextStyles.textStyle8,
-                          ),
-                          Text(
-                            '3 lessons',
-                            style: AppTextStyles.textStyle8.copyWith(
-                              color: AppTheme.ginger,
-                            ),
-                          ),
-                        ],
+                      Opacity(
+                        opacity: open ? 1 : 0.5,
+                        child: Text(
+                          level.name,
+                          style: AppTextStyles.textStyle8,
+                        ),
                       ),
-                      const LevelIndicator(level: 0),
+                      SizedBox(height: 16.h),
+                      open
+                          ? Text(
+                              '${level.lessons.length} lessons',
+                              style: AppTextStyles.textStyle2.copyWith(
+                                color: AppTheme.ginger,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            )
+                          : level.premium
+                              ? Text(
+                                  'To unlock this level, buy Premium!',
+                                  style: AppTextStyles.textStyle2.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                )
+                              : Text(
+                                  'Go to level 1 first.',
+                                  style: AppTextStyles.textStyle2.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
                     ],
                   ),
                 ),
+                Opacity(
+                  opacity: open ? 1 : 0.5,
+                  child: LevelIndicator(level: level.complexity),
+                ),
               ],
             ),
-          ),
+            if (level.premium && !open) ...[
+              SizedBox(height: 16.h),
+              const CustomButton1(text: 'Buy Premium'),
+            ],
+          ],
         ),
       ),
     );

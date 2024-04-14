@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/utils/utils.dart';
 
-class CustomBottomBar extends StatelessWidget {
-  const CustomBottomBar({super.key});
+class CustomBottomBar extends StatefulWidget {
+  const CustomBottomBar({super.key, required this.path});
 
+  final String path;
+
+  @override
+  State<CustomBottomBar> createState() => _CustomBottomBarState();
+}
+
+class _CustomBottomBarState extends State<CustomBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,12 +38,16 @@ class CustomBottomBar extends StatelessWidget {
           tabBarItems.length,
           (index) {
             final item = tabBarItems[index];
-            return Container(
-              width: 48.w,
-              height: 43.h,
-              color: Colors.transparent,
-              alignment: Alignment.center,
-              child: _build(item, index == 0),
+            final selected = getSelected() == index;
+            return GestureDetector(
+              onTap: () => setState(() => context.go(item.path)),
+              child: Container(
+                width: 54.w,
+                height: 43.h,
+                color: Colors.transparent,
+                alignment: Alignment.center,
+                child: _build(item, selected),
+              ),
             );
           },
         ),
@@ -56,7 +68,7 @@ class CustomBottomBar extends StatelessWidget {
           ),
           Text(
             item.title,
-            style: AppTextStyles.textStyle7,
+            style: AppTextStyles.textStyle9,
           ),
         ],
       );
@@ -70,5 +82,13 @@ class CustomBottomBar extends StatelessWidget {
         fit: BoxFit.contain,
       ),
     );
+  }
+
+  int getSelected() {
+    for(int i = tabBarItems.length - 1; i >= 0; i--) {
+      final item = tabBarItems[i].path;
+      if(widget.path.contains(item)) return i;
+    }
+    return 0;
   }
 }

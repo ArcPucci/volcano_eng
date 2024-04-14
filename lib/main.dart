@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/screens/screens.dart';
 
 void main() {
@@ -55,10 +57,17 @@ class _MyAppState extends State<MyApp> {
       routes: [
         ShellRoute(
           pageBuilder: (context, state, child) {
+            final hasBottomBar = (state.fullPath != "/quizzes/quiz");
+            final hasVolcano = (state.fullPath == "/quizzes/quiz");
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: NavigationScreen(child: child),
+              child: NavigationScreen(
+                path: state.fullPath!,
+                hasVolcano: hasVolcano,
+                hasBottomBar: hasBottomBar,
+                child: child,
+              ),
             );
           },
           routes: [
@@ -81,8 +90,94 @@ class _MyAppState extends State<MyApp> {
                       child: const LessonsScreen(),
                     );
                   },
+                  routes: [
+                    GoRoute(
+                      path: 'lesson',
+                      pageBuilder: (context, state) {
+                        return buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: const LessonScreen(),
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: 'result',
+                      pageBuilder: (context, state) {
+                        return buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: const ResultScreen(),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
+            ),
+            GoRoute(
+              path: '/quizzes',
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: const QuizzesScreen(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'quiz',
+                  pageBuilder: (context, state) {
+                    return buildPageWithDefaultTransition(
+                      context: context,
+                      state: state,
+                      child: const QuizScreen(),
+                    );
+                  },
+                ),
+              ],
+            ),
+            GoRoute(
+              path: '/exam',
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: const ExamScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: '/materials',
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: const MaterialsScreen(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'material',
+                  pageBuilder: (context, state) {
+                    return buildPageWithDefaultTransition(
+                      context: context,
+                      state: state,
+                      child: const MaterialScreen(),
+                    );
+                  },
+                ),
+              ],
+            ),
+            GoRoute(
+              path: '/settings',
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: const SettingsScreen(),
+                );
+              },
             ),
           ],
         ),
@@ -92,13 +187,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LessonsProvider(router: _router),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => QuizProvider(router: _router),
+        ),
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routerConfig: _router,
       ),
-      routerConfig: _router,
     );
   }
 }

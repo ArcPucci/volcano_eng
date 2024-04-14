@@ -1,8 +1,12 @@
 export 'gradient_circle.dart';
 export 'buttons/buttons.dart';
-export 'blurred_box.dart';
 export 'custom_bottom_bar.dart';
 export 'level_indicator.dart';
 export 'cards/cards.dart';
 export 'simple_app_bar.dart';
 export 'choose_text_widget.dart';
+export 'custom_indicator.dart';
+export 'stage_indicator.dart';
+export 'paragraph_widget.dart';
+export 'inputs/inputs.dart';
+export 'boxes/boxes.dart';
