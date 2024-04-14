@@ -23,8 +23,8 @@ class BlurredBox extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: 20,
-          sigmaY: 20,
+          sigmaX: 10,
+          sigmaY: 10,
         ),
         child: Container(
           width: 343.w,

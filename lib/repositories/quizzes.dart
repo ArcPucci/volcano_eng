@@ -85,7 +85,9 @@ final List<Quiz> quizzes = [
           const Word(word: 'in bold.\n', isBold: true),
           const Word(word: '- A legend is a'),
           const Word(word: ' story ', isBold: true),
-          const Word(word: 'that is based on historical facts but has been exaggerated or changed over time.'),
+          const Word(
+              word:
+                  'that is based on historical facts but has been exaggerated or changed over time.'),
         ],
         extraQuestion:
             """Rewrite the sentence using a synonym for the word in bold.
@@ -178,6 +180,7 @@ final List<Quiz> quizzes = [
             """Change the sentence from active voice to passive voice. 
 -The workers removed the ash by the trucks.""",
         answer: 'The ash was removed by the trucks by the workers.',
+        fillingGaps: false,
       ),
     ],
   ),

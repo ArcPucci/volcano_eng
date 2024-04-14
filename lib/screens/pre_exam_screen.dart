@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
@@ -16,36 +17,45 @@ class _PreExamScreenState extends State<PreExamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 30.h),
-        const CustomIndicator(total: 2, currentIndex: 0),
-        SizedBox(height: 22.h),
-        Expanded(
-          child: PageView(
-            controller: controller,
-            onPageChanged: (value) => setState(() => currentPage = value),
-            children: [
-              _buildFirstBody(),
-              _buildSecondBody(),
-            ],
+    return BGWidget(
+      hasVolcano: true,
+      child: Column(
+        children: [
+          SizedBox(height: 30.h),
+          CustomIndicator(total: 2, currentIndex: currentPage),
+          SizedBox(height: 22.h),
+          Expanded(
+            child: PageView(
+              controller: controller,
+              onPageChanged: (value) => setState(() => currentPage = value),
+              children: [
+                _buildFirstBody(),
+                _buildSecondBody(),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 16.h),
-        CustomButton1(
-          text: currentPage == 0 ? 'Next' : 'See details',
-          onTap: onNext,
-        ),
-        SizedBox(height: 7.h),
-        SizedBox(
-          height: 52.h,
-          child: Text(
-            currentPage == 1 ? 'Thanks, maybe later...' : '',
-            style: AppTextStyles.textStyle4,
+          SizedBox(height: 16.h),
+          CustomButton1(
+            text: currentPage == 0 ? 'Yes!' : 'Continue',
+            onTap: onNext,
           ),
-        ),
-        SizedBox(height: 7.h),
-      ],
+          SizedBox(height: 7.h),
+          GestureDetector(
+            onTap: Navigator.of(context).pop,
+            child: Container(
+              width: 184.w,
+              height: 52.h,
+              color: Colors.transparent,
+              alignment: Alignment.center,
+              child: Text(
+                currentPage == 0 ? 'Thanks, maybe later...' : '',
+                style: AppTextStyles.textStyle4,
+              ),
+            ),
+          ),
+          SizedBox(height: 7.h),
+        ],
+      ),
     );
   }
 
@@ -77,7 +87,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
                 TextSpan(
                   text:
                       '. This is an unusual exam - you will answer the question in written form, after that you will see the example of an answer to this question. You are free of evaluation, points and corrections. Are you ready?!',
-                  style: AppTextStyles.textStyle1,
+                  style: AppTextStyles.textStyle2,
                 ),
               ],
             ),
@@ -115,7 +125,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
                 TextSpan(
                   text:
                       'will cover all topics from the basic, intermediate, and advanced levels. It will include a mix of multiple-choice questions, short answers, and essay questions to assess comprehensive understanding and application of knowledge.',
-                  style: AppTextStyles.textStyle1,
+                  style: AppTextStyles.textStyle2,
                 ),
               ],
             ),
@@ -176,10 +186,14 @@ class _PreExamScreenState extends State<PreExamScreen> {
 
   void onNext() {
     if (currentPage == 1) {
+      final route = MaterialPageRoute(
+        builder: (context) => const ExamQuestionsScreen(),
+      );
+      Navigator.of(context).pushReplacement(route);
       return;
     }
     controller.nextPage(
-      duration: const Duration(milliseconds: 30),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
   }

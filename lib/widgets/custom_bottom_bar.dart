@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/models/models.dart';
+import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/utils/utils.dart';
 
 class CustomBottomBar extends StatefulWidget {
@@ -40,7 +41,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             final item = tabBarItems[index];
             final selected = getSelected() == index;
             return GestureDetector(
-              onTap: () => setState(() => context.go(item.path)),
+              onTap: () => onTap(item),
               child: Container(
                 width: 54.w,
                 height: 43.h,
@@ -85,10 +86,22 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   }
 
   int getSelected() {
-    for(int i = tabBarItems.length - 1; i >= 0; i--) {
+    for (int i = tabBarItems.length - 1; i >= 0; i--) {
       final item = tabBarItems[i].path;
-      if(widget.path.contains(item)) return i;
+      if (widget.path.contains(item)) return i;
     }
     return 0;
+  }
+
+  void onTap(TabBarItem item) {
+    if (item.id == 2) {
+      final route = MaterialPageRoute(
+        builder: (context) => const PreExamScreen(),
+      );
+
+      Navigator.of(context, rootNavigator: true).push(route);
+      return;
+    }
+    setState(() => context.go(item.path));
   }
 }

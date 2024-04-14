@@ -9,4 +9,5 @@ export 'custom_indicator.dart';
 export 'stage_indicator.dart';
 export 'paragraph_widget.dart';
 export 'inputs/inputs.dart';
+export 'bg_widget.dart';
 export 'boxes/boxes.dart';

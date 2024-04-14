@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/providers/providers.dart';
-import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/buttons/buttons.dart';
 import 'package:volcano_eng/widgets/inputs/inputs.dart';
 
@@ -28,7 +26,10 @@ class QuizInput extends StatelessWidget {
                 mainAxisExtent: 50.h,
               ),
               itemBuilder: (context, index) {
-                return QuizButton(text: multiChoice.answers[index]);
+                return QuizButton(
+                  height: 58.h,
+                  text: multiChoice.answers[index],
+                );
               },
             );
           }
@@ -39,7 +40,10 @@ class QuizInput extends StatelessWidget {
                 final answer = multiChoice.answers[index];
                 return Padding(
                   padding: EdgeInsets.only(bottom: 16.h),
-                  child: QuizButton(text: answer),
+                  child: QuizButton(
+                    height: 58.h,
+                    text: answer,
+                  ),
                 );
               },
             ),
@@ -57,7 +61,10 @@ class QuizInput extends StatelessWidget {
               mainAxisExtent: 50.h,
             ),
             itemBuilder: (context, index) {
-              return QuizButton(text: reorder.options[index]);
+              return QuizButton(
+                height: 58.h,
+                text: reorder.options[index],
+              );
             },
           );
         }
@@ -69,11 +76,37 @@ class QuizInput extends StatelessWidget {
               child: LetterInput(text: completion.answer),
             );
           }
-
           return Align(
             alignment: Alignment.topCenter,
             child: CustomInput3(
               controller: TextEditingController(),
+            ),
+          );
+        }
+        if (value.question is Matching) {
+          final matching = value.question as Matching;
+          return SizedBox(
+            width: 326.w,
+            child: Wrap(
+              spacing: 10.w,
+              runSpacing: 10.h,
+              children: List.generate(
+                matching.options.length,
+                (index) {
+                  final height = index < 2 ? 96.h : 50.h;
+                  final verticalPadding = index == 2 ? 0.0 : 10.h;
+                  final alignment =
+                      index == 2 ? Alignment.centerLeft : Alignment.topLeft;
+                  final option = matching.options[index];
+                  return QuizButton(
+                    width: 158.w,
+                    height: height,
+                    alignment: alignment,
+                    verticalPadding: verticalPadding,
+                    text: option.text,
+                  );
+                },
+              ),
             ),
           );
         }

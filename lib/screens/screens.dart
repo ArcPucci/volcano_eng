@@ -12,3 +12,4 @@ export 'materials_screen.dart';
 export 'material_screen.dart';
 export 'pre_exam_screen.dart';
 export 'exam_screen.dart';
+export 'exam_questions_screen.dart';

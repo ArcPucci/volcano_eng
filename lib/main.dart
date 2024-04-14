@@ -54,7 +54,28 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _router = GoRouter(
+      initialLocation: '/onboarding',
       routes: [
+        GoRoute(
+          path: '/onboarding',
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const OnboardingScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/premium',
+          pageBuilder: (context, state) {
+            return buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: PremiumScreen(onBack: () => context.go('/')),
+            );
+          },
+        ),
         ShellRoute(
           pageBuilder: (context, state, child) {
             final hasBottomBar = (state.fullPath != "/quizzes/quiz");

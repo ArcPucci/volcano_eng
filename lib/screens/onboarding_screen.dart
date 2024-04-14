@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
@@ -56,11 +57,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onTap: onNext,
                   ),
                   SizedBox(height: 7.h),
-                  SizedBox(
-                    height: 52.h,
-                    child: Text(
-                      currentPage == 1 ? 'Thanks, maybe later...' : '',
-                      style: AppTextStyles.textStyle4,
+                  GestureDetector(
+                    onTap: () => context.go('/'),
+                    child: Container(
+                      width: 184.w,
+                      height: 52.h,
+                      color: Colors.transparent,
+                      alignment: Alignment.center,
+                      child: Text(
+                        currentPage == 1 ? 'Thanks, maybe later...' : '',
+                        style: AppTextStyles.textStyle4,
+                      ),
                     ),
                   ),
                   SizedBox(height: 7.h),
@@ -191,6 +198,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void onNext() {
     if (currentPage == 1) {
+      context.go('/premium');
       return;
     }
     controller.nextPage(

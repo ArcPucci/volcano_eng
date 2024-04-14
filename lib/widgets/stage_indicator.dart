@@ -36,8 +36,8 @@ class StageIndicator extends StatelessWidget {
                   ),
                 ),
               Container(
-                width: 40.r,
-                height: 40.r,
+                width: 40.w,
+                height: 40.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: achieved ? AppTheme.emerald : Colors.white,

@@ -11,12 +11,18 @@ class QuizButton extends StatelessWidget {
     this.width,
     this.onTap,
     this.selected = false,
+    this.height,
+    this.verticalPadding,
+    this.alignment,
   });
 
   final String text;
   final double? width;
+  final double? height;
   final VoidCallback? onTap;
   final bool selected;
+  final double? verticalPadding;
+  final Alignment? alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +33,8 @@ class QuizButton extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: Container(
-            width: 326.w,
-            height: 58.h,
+            width: width ?? 326.w,
+            height: height,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: selected
@@ -39,8 +45,11 @@ class QuizButton extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
+              vertical: verticalPadding ?? 0,
+            ),
+            alignment: alignment ?? Alignment.centerLeft,
             child: Text(
               text,
               style: AppTextStyles.textStyle2.copyWith(
