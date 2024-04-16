@@ -22,6 +22,7 @@ class _QuizInputState extends State<QuizInput> {
           final multiChoice = value.question as MultipleChoice;
           if (multiChoice.multipleChoice) {
             return GridView.builder(
+              shrinkWrap: true,
               itemCount: multiChoice.answers.length,
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -70,6 +71,7 @@ class _QuizInputState extends State<QuizInput> {
           final reorder = value.question as Reorder;
           return GridView.builder(
             itemCount: reorder.options.length,
+            shrinkWrap: true,
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
