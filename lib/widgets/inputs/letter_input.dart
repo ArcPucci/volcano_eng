@@ -7,9 +7,11 @@ class LetterInput extends StatefulWidget {
   const LetterInput({
     super.key,
     required this.text,
+    required this.onChanged,
   });
 
   final String text;
+  final void Function(String value) onChanged;
 
   @override
   State<LetterInput> createState() => _LetterInputState();
@@ -17,17 +19,15 @@ class LetterInput extends StatefulWidget {
 
 class _LetterInputState extends State<LetterInput> {
   final controllers = <TextEditingController>[];
-  final focusNodes = <FocusNode>[];
-
   String text = '';
 
   @override
   void initState() {
     super.initState();
     text = widget.text.replaceAll(' ', '');
-    for(int i = 0; i < text.length; i++) {
+    for (int i = 0; i < text.length; i++) {
       controllers.add(TextEditingController());
-      focusNodes.add(FocusNode());
+      controllers.last.addListener(() => widget.onChanged(onChanged()));
     }
   }
 
@@ -62,7 +62,6 @@ class _LetterInputState extends State<LetterInput> {
                   width: 21.w,
                   child: TextField(
                     controller: controllers[index],
-                    focusNode: focusNodes[index],
                     style: AppTextStyles.textStyle8.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -90,5 +89,14 @@ class _LetterInputState extends State<LetterInput> {
         ),
       ),
     );
+  }
+
+  String onChanged() {
+    String str = '';
+    for (final item in controllers) {
+      if(item.text.isEmpty) continue;
+      str += item.text;
+    }
+    return str;
   }
 }

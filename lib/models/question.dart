@@ -1,4 +1,4 @@
-class Question {
+sealed class Question {
   final String question;
   final String extraQuestion;
 
@@ -63,8 +63,10 @@ class Matching extends Question {
     required super.question,
     super.extraQuestion = '',
     required this.options,
+    required this.answer,
   });
 
+  final String answer;
   final List<Option> options;
 }
 
@@ -76,4 +78,15 @@ class Option {
     required this.id,
     required this.text,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Option &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          text == other.text;
+
+  @override
+  int get hashCode => id.hashCode ^ text.hashCode;
 }

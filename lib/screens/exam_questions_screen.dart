@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:volcano_eng/models/models.dart';
+import 'package:volcano_eng/repositories/repositories.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class ExamQuestionsScreen extends StatelessWidget {
@@ -20,13 +21,7 @@ class ExamQuestionsScreen extends StatelessWidget {
           SizedBox(height: 16.h),
           const StageIndicator(currentIndex: 0, total: 7),
           SizedBox(height: 16.h),
-          QuestionBox(
-            question: Question(
-              question:
-                  '1. Describe the process of a volcanic eruption from the rise of magma to the eruption itself.',
-              extraQuestion: '',
-            ),
-          ),
+          QuestionBox(question: examQuestions.first),
           SizedBox(height: 16.h),
           CustomInput3(controller: TextEditingController()),
           const Spacer(),

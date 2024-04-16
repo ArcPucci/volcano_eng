@@ -3,10 +3,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:volcano_eng/providers/providers.dart';
+import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
-class LessonsScreen extends StatelessWidget {
+class LessonsScreen extends StatefulWidget {
   const LessonsScreen({super.key});
+
+  @override
+  State<LessonsScreen> createState() => _LessonsScreenState();
+}
+
+class _LessonsScreenState extends State<LessonsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final route = MaterialPageRoute(
+        builder: (context) => const IntermediateScreen(),
+      );
+
+      Navigator.of(context, rootNavigator: true).push(route);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

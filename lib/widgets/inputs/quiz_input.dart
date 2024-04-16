@@ -6,9 +6,14 @@ import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/widgets/buttons/buttons.dart';
 import 'package:volcano_eng/widgets/inputs/inputs.dart';
 
-class QuizInput extends StatelessWidget {
+class QuizInput extends StatefulWidget {
   const QuizInput({super.key});
 
+  @override
+  State<QuizInput> createState() => _QuizInputState();
+}
+
+class _QuizInputState extends State<QuizInput> {
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizProvider>(
@@ -26,9 +31,15 @@ class QuizInput extends StatelessWidget {
                 mainAxisExtent: 50.h,
               ),
               itemBuilder: (context, index) {
+                final selected = value.selectedOptions.contains(index);
                 return QuizButton(
                   height: 58.h,
                   text: multiChoice.answers[index],
+                  selected: selected,
+                  onTap: () => value.onSelect(
+                    index,
+                    multiChoice.multipleChoice,
+                  ),
                 );
               },
             );
@@ -38,11 +49,17 @@ class QuizInput extends StatelessWidget {
               multiChoice.answers.length,
               (index) {
                 final answer = multiChoice.answers[index];
+                final selected = value.selectedOptions.contains(index);
                 return Padding(
                   padding: EdgeInsets.only(bottom: 16.h),
                   child: QuizButton(
                     height: 58.h,
                     text: answer,
+                    selected: selected,
+                    onTap: () => value.onSelect(
+                      index,
+                      multiChoice.multipleChoice,
+                    ),
                   ),
                 );
               },
@@ -61,9 +78,12 @@ class QuizInput extends StatelessWidget {
               mainAxisExtent: 50.h,
             ),
             itemBuilder: (context, index) {
+              final selected = value.selectedOptions.contains(index);
               return QuizButton(
                 height: 58.h,
+                selected: selected,
                 text: reorder.options[index],
+                onTap: () => value.onSelect(index, true),
               );
             },
           );
@@ -73,14 +93,15 @@ class QuizInput extends StatelessWidget {
           if (completion.fillingGaps) {
             return Align(
               alignment: Alignment.topCenter,
-              child: LetterInput(text: completion.answer),
+              child: LetterInput(
+                text: completion.answer,
+                onChanged: value.onChangedLetters,
+              ),
             );
           }
           return Align(
             alignment: Alignment.topCenter,
-            child: CustomInput3(
-              controller: TextEditingController(),
-            ),
+            child: CustomInput3(controller: value.controller),
           );
         }
         if (value.question is Matching) {
@@ -98,12 +119,15 @@ class QuizInput extends StatelessWidget {
                   final alignment =
                       index == 2 ? Alignment.centerLeft : Alignment.topLeft;
                   final option = matching.options[index];
+                  final selected = value.pairs.contains(option);
                   return QuizButton(
                     width: 158.w,
                     height: height,
                     alignment: alignment,
+                    selected: selected,
                     verticalPadding: verticalPadding,
                     text: option.text,
+                    onTap: () => value.onSelectPair(option),
                   );
                 },
               ),

@@ -17,6 +17,7 @@ class LeaveDialog extends StatelessWidget {
       ),
       actions: [
         CupertinoDialogAction(
+          onPressed: () => Navigator.of(context).pop(true),
           child: Text(
             'Yes',
             style: AppTextStyles.dialogTitle.copyWith(
@@ -26,6 +27,7 @@ class LeaveDialog extends StatelessWidget {
           ),
         ),
         CupertinoDialogAction(
+          onPressed: () => Navigator.of(context).pop(false),
           child: Text(
             'No',
             style: AppTextStyles.dialogTitle.copyWith(

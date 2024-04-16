@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:volcano_eng/providers/providers.dart';
+import 'package:volcano_eng/widgets/dialogs/leave_dialog.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class LessonScreen extends StatelessWidget {
@@ -24,7 +25,11 @@ class LessonScreen extends StatelessWidget {
                     title: "${value.numerator} Lesson",
                     hasBackButton: true,
                     hasBottomBorder: value2.hasBottomBorder,
-                    onBack: context.pop,
+                    onBack: () async {
+                      if(await onLeave(context)) {
+                        context.pop();
+                      }
+                    },
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -79,6 +84,15 @@ class LessonScreen extends StatelessWidget {
             },
           ),
         );
+      },
+    );
+  }
+
+  Future<bool> onLeave(BuildContext context) async {
+    return await showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return const LeaveDialog();
       },
     );
   }

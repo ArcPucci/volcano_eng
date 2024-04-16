@@ -22,7 +22,7 @@ class QuizScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             StageIndicator(
               total: value.quiz.questions.length,
-              currentIndex: 0,
+              currentIndex: value.currentPage,
             ),
             SizedBox(height: 16.h),
             QuestionBox(question: value.question),

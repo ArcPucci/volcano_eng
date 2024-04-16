@@ -13,3 +13,5 @@ export 'material_screen.dart';
 export 'pre_exam_screen.dart';
 export 'exam_screen.dart';
 export 'exam_questions_screen.dart';
+export 'intermediate_screen.dart';
+export 'quiz_result_screen.dart';
