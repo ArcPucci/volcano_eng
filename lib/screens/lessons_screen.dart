@@ -24,7 +24,12 @@ class _LessonsScreenState extends State<LessonsScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (!widget.service.firstEnterToIntermediate()) return;
+      final provider = Provider.of<LessonsProvider>(
+        context,
+        listen: false,
+      );
+      if (!widget.service.firstEnterToIntermediate() || provider.level != 1)
+        return;
       final route = MaterialPageRoute(
         builder: (context) => const IntermediateScreen(),
       );

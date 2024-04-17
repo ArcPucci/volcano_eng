@@ -63,7 +63,7 @@ class ExamQuestionsScreen extends StatelessWidget {
               ),
               CustomButton2(
                 text: value.text,
-                onTap: value.onNext,
+                onTap: () => value.onNext(context),
               ),
               SizedBox(height: 16.h),
             ],

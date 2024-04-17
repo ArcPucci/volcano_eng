@@ -391,18 +391,6 @@ verbs in materials""",
               text: "10. The land __________ (change) a lot.",
               examples: [],
             ),
-            SubText(
-              text: "1. The volcano __________ (erupt) last week.",
-              examples: [],
-            ),
-            SubText(
-              text: "1. The volcano __________ (erupt) last week.",
-              examples: [],
-            ),
-            SubText(
-              text: "1. The volcano __________ (erupt) last week.",
-              examples: [],
-            ),
           ],
         ),
       ],

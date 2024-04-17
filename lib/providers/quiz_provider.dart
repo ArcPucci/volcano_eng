@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/models/models.dart';
+import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/repositories/quizzes.dart';
 import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/services/services.dart';
@@ -9,11 +10,14 @@ class QuizProvider extends ChangeNotifier {
   QuizProvider({
     required GoRouter router,
     required PreferencesService service,
+    required LessonsProvider lessonsProvider,
   })  : _router = router,
-        _service = service;
+        _service = service,
+        _lessonsProvider = lessonsProvider;
 
   final GoRouter _router;
   final PreferencesService _service;
+  final LessonsProvider _lessonsProvider;
 
   Quiz _quiz = quizzes.first;
 
@@ -48,17 +52,28 @@ class QuizProvider extends ChangeNotifier {
 
   List<Option> get pairs => _pairs;
 
-  bool get premium => _service.getPremium();
+  bool _premium = false;
 
-  int get reachedQuiz => _service.getQuiz();
+  bool get premium => _premium;
+
+  int get reachedQuiz => _reachedQuiz;
+
+  int _reachedQuiz = 0;
+
+  void init() {
+    _reachedQuiz = _service.getQuiz();
+    _premium = _service.getPremium();
+
+    notifyListeners();
+  }
 
   void onSelectQuiz(Quiz quiz, BuildContext context) {
-    if (quiz.premium && !premium) {
+    if (quiz.premium && !_premium) {
       _onTapPremium(context);
       return;
     }
 
-    if(quiz.id > reachedQuiz) return;
+    if (quiz.id > reachedQuiz && !_premium) return;
 
     _quiz = quiz;
     _currentTask = 0;
@@ -104,11 +119,14 @@ class QuizProvider extends ChangeNotifier {
     if (!isValid()) return;
     _checkAnswers();
     if (_currentTask == _quiz.questions.length - 1) {
-      if (_quiz.id > reachedQuiz) {
+      if (_quiz.id >= reachedQuiz) {
         await _service.setQuiz(_quiz.id + 1);
+        _reachedQuiz = _quiz.id + 1;
       }
 
       _router.go('/quizzes/result');
+
+      notifyListeners();
       return;
     }
 
@@ -265,5 +283,14 @@ class QuizProvider extends ChangeNotifier {
     );
 
     Navigator.of(context, rootNavigator: true).push(route);
+  }
+
+  void onBuyPremium() async {
+    _premium = true;
+    await _service.setPremium();
+
+    _lessonsProvider.onBuyPremium();
+
+    notifyListeners();
   }
 }

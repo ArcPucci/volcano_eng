@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:volcano_eng/models/models.dart';
+import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/repositories/repositories.dart';
 import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/services/services.dart';
@@ -104,7 +106,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     if (item.id == 2) {
       final level = widget.service.getLevel();
       final maxLevel = levels.last.id;
-      if (level > maxLevel) {
+      final value = Provider.of<ExamProvider>(context, listen: false);
+      if (level > maxLevel && !value.examPassed || value.premium) {
         final route = MaterialPageRoute(
           builder: (context) => const PreExamScreen(),
         );

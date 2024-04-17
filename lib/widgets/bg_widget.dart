@@ -10,8 +10,11 @@ class BGWidget extends StatelessWidget {
     super.key,
     required this.hasVolcano,
     required this.child,
+    this.inverse = false,
   });
+
   final bool hasVolcano;
+  final bool inverse;
   final Widget child;
 
   @override
@@ -24,7 +27,8 @@ class BGWidget extends StatelessWidget {
             if (!hasVolcano)
               Positioned(
                 top: 223.h,
-                right: -72.r,
+                left: inverse ? -45.r : 0,
+                right: inverse ? 0 : -72.r,
                 child: GradientCircle(
                   radius: 211.r,
                   angle: pi / 2,
@@ -32,8 +36,9 @@ class BGWidget extends StatelessWidget {
               ),
             if (!hasVolcano)
               Positioned(
-                left: -15.r,
-                bottom: 77.h,
+                left: inverse ? 0 : -15.r,
+                right: inverse ? -42.r : 0,
+                bottom: inverse ? 9.h : 77.h,
                 child: GradientCircle(
                   radius: 132.r,
                   angle: pi / 2,

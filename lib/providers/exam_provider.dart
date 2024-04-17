@@ -6,8 +6,8 @@ import 'package:volcano_eng/services/services.dart';
 
 class ExamProvider extends ChangeNotifier {
   ExamProvider({
-    required GoRouter router,
     required PreferencesService service,
+    required GoRouter router,
   })  : _router = router,
         _service = service;
 
@@ -34,15 +34,23 @@ class ExamProvider extends ChangeNotifier {
 
   TextEditingController get controller => _controller;
 
+  bool _examPassed = false;
+
+  bool get examPassed => _examPassed;
+
+  bool get premium => _service.getPremium();
+
   void init() {
     _currentIndex = 0;
     _answerOpen = false;
+    _examPassed = _service.getExam();
     _controller.clear();
 
     notifyListeners();
   }
 
-  void onNext() {
+  void onNext(BuildContext context) async {
+    if(_controller.text.isEmpty) return;
     if (!answerOpen) {
       _answerOpen = true;
 
@@ -51,6 +59,12 @@ class ExamProvider extends ChangeNotifier {
     }
 
     if (_currentIndex == examQuestions.length - 1) {
+      Navigator.of(context).pop();
+      await _service.setExam();
+      _examPassed = true;
+
+      _router.go('/exam');
+      notifyListeners();
       return;
     }
 

@@ -101,11 +101,14 @@ class _MyAppState extends State<MyApp> {
           pageBuilder: (context, state, child) {
             final hasBottomBar = (state.fullPath != "/quizzes/quiz");
             final hasVolcano = (state.fullPath == "/quizzes/quiz");
+            final inverse = (state.fullPath == "/exam" &&
+                !widget.preferencesService.getExam());
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
               child: NavigationScreen(
                 path: state.fullPath!,
+                inverse: inverse,
                 hasVolcano: hasVolcano,
                 hasBottomBar: hasBottomBar,
                 service: widget.preferencesService,
@@ -247,19 +250,20 @@ class _MyAppState extends State<MyApp> {
           create: (context) => LessonsProvider(
             router: _router,
             service: widget.preferencesService,
-          ),
+          )..init(),
         ),
         ChangeNotifierProvider(
           create: (context) => QuizProvider(
             router: _router,
             service: widget.preferencesService,
-          ),
+            lessonsProvider: Provider.of(context, listen: false),
+          )..init(),
         ),
         ChangeNotifierProvider(
           create: (context) => ExamProvider(
             router: _router,
             service: widget.preferencesService,
-          ),
+          )..init(),
         ),
       ],
       child: MaterialApp.router(

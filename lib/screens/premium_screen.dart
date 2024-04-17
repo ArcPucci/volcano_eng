@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/utils/utils.dart';
-import 'package:volcano_eng/widgets/buttons/buttons.dart';
-import 'package:volcano_eng/widgets/gradient_circle.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class PremiumScreen extends StatelessWidget {
@@ -159,7 +159,10 @@ class PremiumScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    const CustomButton1(text: 'Buy Premium for \$2.99'),
+                    CustomButton1(
+                      text: 'Buy Premium for \$2.99',
+                      onTap: () => onBuyPremium(context),
+                    ),
                     SizedBox(height: 16.h),
                     SizedBox(
                       width: 356.w,
@@ -176,14 +179,17 @@ class PremiumScreen extends StatelessWidget {
                               style: AppTextStyles.textStyle7,
                             ),
                           ),
-                          Container(
-                            width: 67.w,
-                            height: 48.h,
-                            color: Colors.transparent,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Restore',
-                              style: AppTextStyles.textStyle7,
+                          GestureDetector(
+                            onTap: () => onBuyPremium(context),
+                            child: Container(
+                              width: 67.w,
+                              height: 48.h,
+                              color: Colors.transparent,
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Restore',
+                                style: AppTextStyles.textStyle7,
+                              ),
                             ),
                           ),
                           Container(
@@ -207,5 +213,15 @@ class PremiumScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onBuyPremium(BuildContext context) {
+    final provider = Provider.of<QuizProvider>(
+      context,
+      listen: false,
+    );
+
+    provider.onBuyPremium();
+    (onBack ?? Navigator.of(context).pop).call();
   }
 }

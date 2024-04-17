@@ -14,7 +14,6 @@ class CustomInput3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 343.w,
-      height: 54.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppTheme.darkBlue.withOpacity(0.1),
@@ -29,17 +28,15 @@ class CustomInput3 extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Expanded(
-            child: TextField(
-              controller: controller,
-              maxLines: null,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.textStyle1.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-              decoration: const InputDecoration.collapsed(
-                hintText: '',
-              ),
+          TextField(
+            controller: controller,
+            maxLines: null,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.textStyle1.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+            decoration: const InputDecoration.collapsed(
+              hintText: '',
             ),
           ),
           Container(

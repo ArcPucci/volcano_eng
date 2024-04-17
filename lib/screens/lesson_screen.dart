@@ -73,7 +73,7 @@ class LessonScreen extends StatelessWidget {
                           CustomButton2(
                             text: 'Next',
                             onTap: () {
-                              if(!value2.canGoNext) return;
+                              if(!value2.canGoNext && value.lastPage) return;
                               value.onNext(value2.answers);
                             },
                           ),

@@ -31,23 +31,25 @@ class QuestionBox extends StatelessWidget {
           if (question is Completion &&
               (question as Completion).words.isNotEmpty) ...[
             SizedBox(height: 15.h),
-            Wrap(
-              children: List.generate(
-                (question as Completion).words.length,
-                (index) {
-                  final word = (question as Completion).words[index];
-                  return Text(
-                    word.word,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.textStyle1.copyWith(
-                      fontWeight:
-                          word.isBold ? FontWeight.w600 : FontWeight.w400,
-                    ),
-                  );
-                },
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: List.generate(
+                  (question as Completion).words.length,
+                  (index) {
+                    final word = (question as Completion).words[index];
+                    return TextSpan(
+                      text: word.word,
+                      style: AppTextStyles.textStyle1.copyWith(
+                        fontWeight:
+                        word.isBold ? FontWeight.w600 : FontWeight.w400,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ] else if(question.extraQuestion.isNotEmpty)...[
+          ] else if (question.extraQuestion.isNotEmpty) ...[
             SizedBox(height: 15.h),
             Text(
               question.extraQuestion,

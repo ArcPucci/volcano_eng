@@ -28,6 +28,8 @@ class LessonsProvider extends ChangeNotifier {
 
   int _currentPage = 0;
 
+  bool get lastPage => _currentPage == _lesson.pages.length - 1;
+
   Lesson get lesson => _lesson;
 
   int get totalPages => _lesson.pages.length;
@@ -56,13 +58,27 @@ class LessonsProvider extends ChangeNotifier {
 
   String get answers => _answers;
 
-  bool get premium => _service.getPremium();
+  bool _premium = false;
 
-  int get reachedLevel => _service.getLevel();
+  bool get premium => _premium;
 
-  int get reachedLesson => _service.getLesson();
+  int _reachedLevel = 0;
+
+  int _reachedLesson = 0;
+
+  int get reachedLevel => _reachedLevel;
+
+  int get reachedLesson => _reachedLesson;
 
   bool get lastLesson => _lesson.id == lessons.last.id;
+
+  void init() {
+    _reachedLesson = _service.getLesson();
+    _reachedLevel = _service.getLevel();
+    _premium = _service.getPremium();
+
+    notifyListeners();
+  }
 
   void onSelectLevel(Level level, BuildContext context) {
     if (level.premium && !premium) {
@@ -83,19 +99,24 @@ class LessonsProvider extends ChangeNotifier {
 
   void onNext(String answers) async {
     if (_currentPage == totalPages - 1) {
-      if (reachedLevel < _level.id) {
-        if (_lesson.id == _level.lessons.length - 1) {
-          await _service.setLevel(_level.id + 1);
-          await _service.setLesson(0);
-        } else {
-          if (_lesson.id > reachedLesson) {
-            await _service.setLesson(_lesson.id + 1);
-          }
+      if (reachedLevel <= _level.id) {
+        if (_lesson.id == _level.lessons.last.id) {
+          _reachedLevel = _level.id + 1;
+          await _service.setLevel(_reachedLevel);
+        }
+
+        if (_reachedLesson == _lesson.id) {
+          _reachedLesson++;
+          await _service.setLesson(_reachedLesson);
+
+          notifyListeners();
         }
       }
 
       _router.go('/lessons/result');
       _answers = answers;
+
+      notifyListeners();
       return;
     }
     _currentPage++;
@@ -108,5 +129,10 @@ class LessonsProvider extends ChangeNotifier {
     );
 
     Navigator.of(context, rootNavigator: true).push(route);
+  }
+
+  void onBuyPremium() async {
+    _premium = true;
+    notifyListeners();
   }
 }

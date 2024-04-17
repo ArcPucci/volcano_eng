@@ -82,16 +82,15 @@ final List<Quiz> quizzes = [
             '3. What is the difference between a legend and a myth? (Rewrite)',
         words: [
           const Word(word: 'Rewrite the sentence using a synonym for the word'),
-          const Word(word: 'in bold.\n', isBold: true),
-          const Word(word: '- A legend is a'),
+          const Word(word: ' in bold.', isBold: true),
+          const Word(word: '\n- A legend is a'),
           const Word(word: ' story ', isBold: true),
           const Word(
               word:
                   'that is based on historical facts but has been exaggerated or changed over time.'),
         ],
         extraQuestion:
-            """Rewrite the sentence using a synonym for the word in bold.
-- A legend is a story that is based on historical facts but has been exaggerated or changed over time.""",
+            """Rewrite the sentence using a synonym for the word in bold.\n- A legend is a story that is based on historical facts but has been exaggerated or changed over time.""",
         answer:
             'A legend is a tale that is based on historical facts but has been embellished or altered over time.',
         fillingGaps: false,
