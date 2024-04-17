@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:volcano_eng/services/services.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({super.key, required this.service});
+
+  final PreferencesService service;
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -58,7 +61,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   SizedBox(height: 7.h),
                   GestureDetector(
-                    onTap: () => context.go('/'),
+                    onTap: () async {
+                      context.go('/');
+                      await widget.service.setFirstInit();
+                    },
                     child: Container(
                       width: 184.w,
                       height: 52.h,
@@ -196,9 +202,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() {});
   }
 
-  void onNext() {
+  void onNext() async {
     if (currentPage == 1) {
       context.go('/premium');
+      await widget.service.setFirstInit();
       return;
     }
     controller.nextPage(

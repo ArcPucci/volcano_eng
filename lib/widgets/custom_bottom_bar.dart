@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/models/models.dart';
+import 'package:volcano_eng/repositories/repositories.dart';
 import 'package:volcano_eng/screens/screens.dart';
+import 'package:volcano_eng/services/services.dart';
 import 'package:volcano_eng/utils/utils.dart';
 
 class CustomBottomBar extends StatefulWidget {
-  const CustomBottomBar({super.key, required this.path});
+  const CustomBottomBar({
+    super.key,
+    required this.path,
+    required this.service,
+  });
 
   final String path;
+  final PreferencesService service;
 
   @override
   State<CustomBottomBar> createState() => _CustomBottomBarState();
@@ -95,12 +102,16 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
 
   void onTap(TabBarItem item) {
     if (item.id == 2) {
-      final route = MaterialPageRoute(
-        builder: (context) => const PreExamScreen(),
-      );
+      final level = widget.service.getLevel();
+      final maxLevel = levels.last.id;
+      if (level > maxLevel) {
+        final route = MaterialPageRoute(
+          builder: (context) => const PreExamScreen(),
+        );
 
-      Navigator.of(context, rootNavigator: true).push(route);
-      return;
+        Navigator.of(context, rootNavigator: true).push(route);
+        return;
+      }
     }
     setState(() => context.go(item.path));
   }

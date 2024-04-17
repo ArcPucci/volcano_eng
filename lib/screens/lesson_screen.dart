@@ -72,7 +72,10 @@ class LessonScreen extends StatelessWidget {
                           SizedBox(height: 34.h),
                           CustomButton2(
                             text: 'Next',
-                            onTap: () => value.onNext(value2.answers),
+                            onTap: () {
+                              if(!value2.canGoNext) return;
+                              value.onNext(value2.answers);
+                            },
                           ),
                           SizedBox(height: 300.h),
                         ],

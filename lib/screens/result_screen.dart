@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/utils/utils.dart';
@@ -62,6 +63,31 @@ class ResultScreen extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    SizedBox(height: 22.h),
+                    Visibility(
+                      visible: value.lastLesson,
+                      child: BlurredBox(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 16.h),
+                            SizedBox(
+                              width: 299.w,
+                              child: Text(
+                                'Try quizzes for a comprehensive overview of the level. You can find them in a quiz section.',
+                                style: AppTextStyles.textStyle8.copyWith(
+                                  color: AppTheme.emerald,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16.h),
+                            CustomButton2(
+                              text: 'Continue',
+                              onTap: () => context.go('/quizzes'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

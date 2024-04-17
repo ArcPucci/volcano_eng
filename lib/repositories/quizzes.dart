@@ -184,5 +184,6 @@ final List<Quiz> quizzes = [
         fillingGaps: false,
       ),
     ],
+    premium: true,
   ),
 ];

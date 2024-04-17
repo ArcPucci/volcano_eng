@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/repositories/quizzes.dart';
+import 'package:volcano_eng/screens/screens.dart';
+import 'package:volcano_eng/services/services.dart';
 
 class QuizProvider extends ChangeNotifier {
   QuizProvider({
     required GoRouter router,
-  }) : _router = router;
+    required PreferencesService service,
+  })  : _router = router,
+        _service = service;
 
   final GoRouter _router;
+  final PreferencesService _service;
 
   Quiz _quiz = quizzes.first;
 
@@ -43,7 +48,18 @@ class QuizProvider extends ChangeNotifier {
 
   List<Option> get pairs => _pairs;
 
-  void onSelectQuiz(Quiz quiz) {
+  bool get premium => _service.getPremium();
+
+  int get reachedQuiz => _service.getQuiz();
+
+  void onSelectQuiz(Quiz quiz, BuildContext context) {
+    if (quiz.premium && !premium) {
+      _onTapPremium(context);
+      return;
+    }
+
+    if(quiz.id > reachedQuiz) return;
+
     _quiz = quiz;
     _currentTask = 0;
     _answers.clear();
@@ -84,10 +100,14 @@ class QuizProvider extends ChangeNotifier {
     _letters = value;
   }
 
-  void onNext() {
-    if(!isValid()) return;
+  void onNext() async {
+    if (!isValid()) return;
     _checkAnswers();
     if (_currentTask == _quiz.questions.length - 1) {
+      if (_quiz.id > reachedQuiz) {
+        await _service.setQuiz(_quiz.id + 1);
+      }
+
       _router.go('/quizzes/result');
       return;
     }
@@ -151,7 +171,10 @@ class QuizProvider extends ChangeNotifier {
         final completion = question as Completion;
 
         if (completion.fillingGaps) {
-          final temp = completion.answer.split(' ').reduce((a, b) => a + b).toLowerCase();
+          final temp = completion.answer
+              .split(' ')
+              .reduce((a, b) => a + b)
+              .toLowerCase();
           if (_letters.toLowerCase() != temp) {
             _answers.last.add(_letters);
             _answers.last.add("(${completion.answer})");
@@ -234,5 +257,13 @@ class QuizProvider extends ChangeNotifier {
         _answers.last.add("(${matching.answer})");
         break;
     }
+  }
+
+  void _onTapPremium(BuildContext context) {
+    final route = MaterialPageRoute(
+      builder: (context) => const PremiumScreen(),
+    );
+
+    Navigator.of(context, rootNavigator: true).push(route);
   }
 }

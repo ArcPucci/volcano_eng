@@ -5,6 +5,7 @@ class Quiz {
   final String name;
   final String level;
   final int complexity;
+  final bool premium;
   final List<Question> questions;
 
   const Quiz({
@@ -13,5 +14,6 @@ class Quiz {
     required this.level,
     required this.complexity,
     required this.questions,
+    this.premium = false,
   });
 }

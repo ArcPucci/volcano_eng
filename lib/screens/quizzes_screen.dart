@@ -28,11 +28,14 @@ class QuizzesScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 itemBuilder: (context, index) {
                   final quiz = quizzes[index];
+                  final open = value.reachedQuiz >= quiz.id || value.premium;
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: QuizCard(
                       quiz: quiz,
-                      onTap: () => value.onSelectQuiz(quiz),
+                      available: open,
+                      premium: value.premium,
+                      onTap: () => value.onSelectQuiz(quiz, context),
                     ),
                   );
                 },

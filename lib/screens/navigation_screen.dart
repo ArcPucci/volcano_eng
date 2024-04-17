@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:volcano_eng/services/services.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class NavigationScreen extends StatelessWidget {
@@ -8,12 +9,14 @@ class NavigationScreen extends StatelessWidget {
     required this.path,
     this.hasBottomBar = true,
     this.hasVolcano = false,
+    required this.service,
   });
 
   final String path;
   final bool hasBottomBar;
   final bool hasVolcano;
   final Widget child;
+  final PreferencesService service;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class NavigationScreen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(child: child),
-          if (hasBottomBar) CustomBottomBar(path: path),
+          if (hasBottomBar) CustomBottomBar(path: path, service: service),
         ],
       ),
     );

@@ -32,6 +32,7 @@ class CustomInput3 extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: controller,
+              maxLines: null,
               textAlign: TextAlign.center,
               style: AppTextStyles.textStyle1.copyWith(
                 fontWeight: FontWeight.w600,

@@ -24,6 +24,15 @@ class TaskProvider extends ChangeNotifier {
 
   bool _hasBottomBar = false;
 
+  bool get canGoNext {
+    for(final item in _controllers) {
+      for(final temp in item) {
+        if(temp.text.isEmpty) return false;
+      }
+    }
+    return true;
+  }
+
   String get answers {
     String temp = '';
     for (int i = 0; i < _controllers.length; i++) {

@@ -92,7 +92,7 @@ class LevelCard extends StatelessWidget {
             ),
             if (level.premium && !open) ...[
               SizedBox(height: 16.h),
-              const CustomButton1(text: 'Buy Premium'),
+              CustomButton1(text: 'Buy Premium', onTap: onTap),
             ],
           ],
         ),

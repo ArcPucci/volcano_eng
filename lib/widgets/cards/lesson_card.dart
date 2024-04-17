@@ -10,11 +10,13 @@ class LessonCard extends StatelessWidget {
     this.onTap,
     required this.lesson,
     required this.index,
+    this.completed = false,
   });
 
   final VoidCallback? onTap;
   final Lesson lesson;
   final int index;
+  final bool completed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,9 @@ class LessonCard extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: Image.asset(
-                'assets/png/icons/next.png',
+                completed
+                    ? "assets/png/icons/list.png"
+                    : 'assets/png/icons/next.png',
                 width: 34.r,
                 height: 34.r,
                 fit: BoxFit.contain,
@@ -61,7 +65,8 @@ class LessonCard extends StatelessWidget {
                         Text(
                           '${numerators[index]} lesson',
                           style: AppTextStyles.textStyle2.copyWith(
-                            color: AppTheme.ginger,
+                            color:
+                                completed ? AppTheme.emerald : AppTheme.ginger,
                             fontStyle: FontStyle.italic,
                           ),
                         ),

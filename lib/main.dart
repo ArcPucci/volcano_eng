@@ -4,17 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/screens/screens.dart';
+import 'package:volcano_eng/services/services.dart';
 
 void main() {
-  runZonedGuarded(() {
+  runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    final preferences = await SharedPreferences.getInstance();
+    final preferencesService = PreferencesService(preferences);
 
     runApp(ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) {
-        return const MyApp();
+        return MyApp(preferencesService: preferencesService);
       },
     ));
   }, (error, stack) {});
@@ -41,7 +46,12 @@ CustomTransitionPage buildPageWithDefaultTransition({
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required this.preferencesService,
+  });
+
+  final PreferencesService preferencesService;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -53,8 +63,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    final firstInit = widget.preferencesService.getFirstInit();
+
+    final premium = widget.preferencesService.getPremium();
+    final initLocation = firstInit
+        ? '/onboarding'
+        : premium
+            ? '/'
+            : '/premium';
+
     _router = GoRouter(
-      initialLocation: '/onboarding',
+      initialLocation: initLocation,
       routes: [
         GoRoute(
           path: '/onboarding',
@@ -62,7 +81,9 @@ class _MyAppState extends State<MyApp> {
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: const OnboardingScreen(),
+              child: OnboardingScreen(
+                service: widget.preferencesService,
+              ),
             );
           },
         ),
@@ -87,6 +108,7 @@ class _MyAppState extends State<MyApp> {
                 path: state.fullPath!,
                 hasVolcano: hasVolcano,
                 hasBottomBar: hasBottomBar,
+                service: widget.preferencesService,
                 child: child,
               ),
             );
@@ -108,7 +130,7 @@ class _MyAppState extends State<MyApp> {
                     return buildPageWithDefaultTransition(
                       context: context,
                       state: state,
-                      child: const LessonsScreen(),
+                      child: LessonsScreen(service: widget.preferencesService),
                     );
                   },
                   routes: [
@@ -220,11 +242,24 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider.value(value: widget.preferencesService),
         ChangeNotifierProvider(
-          create: (context) => LessonsProvider(router: _router),
+          create: (context) => LessonsProvider(
+            router: _router,
+            service: widget.preferencesService,
+          ),
         ),
         ChangeNotifierProvider(
-          create: (context) => QuizProvider(router: _router),
+          create: (context) => QuizProvider(
+            router: _router,
+            service: widget.preferencesService,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ExamProvider(
+            router: _router,
+            service: widget.preferencesService,
+          ),
         ),
       ],
       child: MaterialApp.router(
