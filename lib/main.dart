@@ -265,6 +265,9 @@ class _MyAppState extends State<MyApp> {
             service: widget.preferencesService,
           )..init(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => MaterialsProvider(router: _router),
+        ),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
