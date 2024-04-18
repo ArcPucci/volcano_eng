@@ -61,87 +61,80 @@ class _PreExamScreenState extends State<PreExamScreen> {
 
   Widget _buildFirstBody() {
     return _buildBody(
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Exam',
-            style: AppTextStyles.textStyle1.copyWith(
-              color: AppTheme.emerald,
-            ),
+      [
+        Text(
+          'Exam',
+          style: AppTextStyles.textStyle1.copyWith(
+            color: AppTheme.emerald,
           ),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: 'Congratulations - you have reached the',
-              style: AppTextStyles.textStyle2,
-              children: [
-                TextSpan(
-                  text: ' final exam',
-                  style: AppTextStyles.textStyle2.copyWith(
-                    color: AppTheme.ginger,
-                    fontStyle: FontStyle.italic,
-                  ),
+        ),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'Congratulations - you have reached the',
+            style: AppTextStyles.textStyle2,
+            children: [
+              TextSpan(
+                text: ' final exam',
+                style: AppTextStyles.textStyle2.copyWith(
+                  color: AppTheme.ginger,
+                  fontStyle: FontStyle.italic,
                 ),
-                TextSpan(
-                  text:
-                      '. This is an unusual exam - you will answer the question in written form, after that you will see the example of an answer to this question. You are free of evaluation, points and corrections. Are you ready?!',
-                  style: AppTextStyles.textStyle2,
-                ),
-              ],
-            ),
+              ),
+              TextSpan(
+                text:
+                '. This is an unusual exam - you will answer the question in written form, after that you will see the example of an answer to this question. You are free of evaluation, points and corrections. Are you ready?!',
+                style: AppTextStyles.textStyle2,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildSecondBody() {
     return _buildBody(
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Exam',
-            style: AppTextStyles.textStyle1.copyWith(
-              color: AppTheme.emerald,
-            ),
+      [
+        Text(
+          'Exam',
+          style: AppTextStyles.textStyle1.copyWith(
+            color: AppTheme.emerald,
           ),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: 'The',
-              style: AppTextStyles.textStyle2,
-              children: [
-                TextSpan(
-                  text: ' cumulative exam ',
-                  style: AppTextStyles.textStyle2.copyWith(
-                    color: AppTheme.ginger,
-                    fontStyle: FontStyle.italic,
-                  ),
+        ),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'The',
+            style: AppTextStyles.textStyle2,
+            children: [
+              TextSpan(
+                text: ' cumulative exam ',
+                style: AppTextStyles.textStyle2.copyWith(
+                  color: AppTheme.ginger,
+                  fontStyle: FontStyle.italic,
                 ),
-                TextSpan(
-                  text:
-                      'will cover all topics from the basic, intermediate, and advanced levels. It will include a mix of multiple-choice questions, short answers, and essay questions to assess comprehensive understanding and application of knowledge.',
-                  style: AppTextStyles.textStyle2,
-                ),
-              ],
-            ),
+              ),
+              TextSpan(
+                text:
+                'will cover all topics from the basic, intermediate, and advanced levels. It will include a mix of multiple-choice questions, short answers, and essay questions to assess comprehensive understanding and application of knowledge.',
+                style: AppTextStyles.textStyle2,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _buildBody(Widget child) {
+  Widget _buildBody(List<Widget> children) {
     return Center(
       child: BlurredBox(
         height: 543.h,
+        padding: EdgeInsets.symmetric(vertical: 16.h),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 16.h),
             SizedBox(
               width: 334.w,
               height: 336.h,
@@ -176,7 +169,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
                 ],
               ),
             ),
-            Expanded(child: child),
+            ...children,
           ],
         ),
       ),
