@@ -54,6 +54,7 @@ class QuizButton extends StatelessWidget {
               text,
               style: AppTextStyles.textStyle2.copyWith(
                 fontWeight: FontWeight.w400,
+                fontSize: 15.r,
               ),
             ),
           ),

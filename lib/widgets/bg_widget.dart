@@ -27,8 +27,8 @@ class BGWidget extends StatelessWidget {
             if (!hasVolcano)
               Positioned(
                 top: 223.h,
-                left: inverse ? -45.r : 0,
-                right: inverse ? 0 : -72.r,
+                left: inverse ? -45.r : null,
+                right: inverse ? null : -72.r,
                 child: GradientCircle(
                   radius: 211.r,
                   angle: pi / 2,
@@ -36,8 +36,8 @@ class BGWidget extends StatelessWidget {
               ),
             if (!hasVolcano)
               Positioned(
-                left: inverse ? 0 : -15.r,
-                right: inverse ? -42.r : 0,
+                left: inverse ? null : -15.r,
+                right: inverse ? -42.r : null,
                 bottom: inverse ? 9.h : 77.h,
                 child: GradientCircle(
                   radius: 132.r,

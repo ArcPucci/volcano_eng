@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:volcano_eng/models/models.dart';
 import 'package:volcano_eng/providers/providers.dart';
-import 'package:volcano_eng/repositories/repositories.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
@@ -38,22 +36,25 @@ class ExamQuestionsScreen extends StatelessWidget {
                       CustomInput3(controller: value.controller),
                       Visibility(
                         visible: value.answerOpen,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 22.h),
-                            Text(
-                              'Correct answer',
-                              style: AppTextStyles.textStyle8.copyWith(
-                                color: AppTheme.emerald,
+                        child: SizedBox(
+                          width: 331.w,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 22.h),
+                              Text(
+                                'Correct answer',
+                                style: AppTextStyles.textStyle8.copyWith(
+                                  color: AppTheme.emerald,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 16.h),
-                            Text(
-                              value.answer,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.textStyle8,
-                            ),
-                          ],
+                              SizedBox(height: 16.h),
+                              Text(
+                                value.answer,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.textStyle8,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(height: 300.h),

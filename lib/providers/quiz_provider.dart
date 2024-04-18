@@ -11,13 +11,16 @@ class QuizProvider extends ChangeNotifier {
     required GoRouter router,
     required PreferencesService service,
     required LessonsProvider lessonsProvider,
+    required MaterialsProvider materialsProvider,
   })  : _router = router,
         _service = service,
-        _lessonsProvider = lessonsProvider;
+        _lessonsProvider = lessonsProvider,
+        _materialsProvider = materialsProvider;
 
   final GoRouter _router;
   final PreferencesService _service;
   final LessonsProvider _lessonsProvider;
+  final MaterialsProvider _materialsProvider;
 
   Quiz _quiz = quizzes.first;
 
@@ -202,7 +205,7 @@ class QuizProvider extends ChangeNotifier {
         } else {
           final temp = completion.answer.toLowerCase();
           final temp2 = _controller.text.toLowerCase();
-          if (!temp.contains(temp2)) {
+          if (temp != temp2) {
             _answers.last.add(_controller.text);
             _answers.last.add("(${completion.answer})");
           } else {
@@ -290,6 +293,7 @@ class QuizProvider extends ChangeNotifier {
     await _service.setPremium();
 
     _lessonsProvider.onBuyPremium();
+    _materialsProvider.onBuyPremium();
 
     notifyListeners();
   }

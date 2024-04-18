@@ -31,6 +31,7 @@ final List<StudyMaterial> studyMaterials = [
     asset: 'assets/png/adv_materials.png',
     title: 'Advanced Materials',
     complexity: 3,
+    isPremium: true,
     materials: [
       "$materials/material8.png",
       "$materials/material9.png",

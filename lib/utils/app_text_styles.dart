@@ -5,7 +5,7 @@ import 'package:volcano_eng/utils/utils.dart';
 class AppTextStyles {
   static final TextStyle textStyle1 = TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 24.r,
+    fontSize: 23.r,
     height: 28 / 24,
     color: Colors.white,
   );
@@ -56,7 +56,7 @@ class AppTextStyles {
 
   static final TextStyle  textStyle8 = TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 20.r,
+    fontSize: 19.r,
     height: 24 / 20,
     color: Colors.white,
   );

@@ -253,9 +253,16 @@ class _MyAppState extends State<MyApp> {
           )..init(),
         ),
         ChangeNotifierProvider(
+          create: (context) => MaterialsProvider(
+            router: _router,
+            service: widget.preferencesService,
+          )..init(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => QuizProvider(
             router: _router,
             service: widget.preferencesService,
+            materialsProvider: Provider.of(context, listen: false),
             lessonsProvider: Provider.of(context, listen: false),
           )..init(),
         ),
@@ -264,9 +271,6 @@ class _MyAppState extends State<MyApp> {
             router: _router,
             service: widget.preferencesService,
           )..init(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => MaterialsProvider(router: _router),
         ),
       ],
       child: MaterialApp.router(

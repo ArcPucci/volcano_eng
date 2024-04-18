@@ -50,7 +50,6 @@ class ExamProvider extends ChangeNotifier {
   }
 
   void onNext(BuildContext context) async {
-    if(_controller.text.isEmpty) return;
     if (!answerOpen) {
       _answerOpen = true;
 

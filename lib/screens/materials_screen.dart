@@ -28,11 +28,14 @@ class MaterialsScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
                 itemBuilder: (context, index) {
                   final material = studyMaterials[index];
+                  final open = value.reachedMaterial >= material.id;
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: MaterialCard(
                       studyMaterial: material,
-                      onTap: () => value.onSelect(material),
+                      open: open,
+                      premium: value.premium,
+                      onTap: () => value.onSelect(material, context),
                     ),
                   );
                 },

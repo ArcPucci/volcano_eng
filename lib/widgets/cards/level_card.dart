@@ -46,43 +46,40 @@ class LevelCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                SizedBox(
-                  width: 160.sp,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Opacity(
-                        opacity: open ? 1 : 0.5,
-                        child: Text(
-                          level.name,
-                          style: AppTextStyles.textStyle8,
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Opacity(
+                      opacity: open ? 1 : 0.5,
+                      child: Text(
+                        level.name,
+                        style: AppTextStyles.textStyle8,
                       ),
-                      SizedBox(height: 16.h),
-                      open
-                          ? Text(
-                              '${level.lessons.length} lessons',
-                              style: AppTextStyles.textStyle2.copyWith(
-                                color: AppTheme.ginger,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            )
-                          : level.premium
-                              ? Text(
-                                  'To unlock this level, buy Premium!',
-                                  style: AppTextStyles.textStyle2.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                )
-                              : Text(
-                                  'Go to level 1 first.',
-                                  style: AppTextStyles.textStyle2.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                    ),
+                    SizedBox(height: 16.h),
+                    open
+                        ? Text(
+                            '${level.lessons.length} lessons',
+                            style: AppTextStyles.textStyle2.copyWith(
+                              color: AppTheme.ginger,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          )
+                        : level.premium
+                            ? Text(
+                                'To unlock this level, buy Premium!',
+                                style: AppTextStyles.textStyle2.copyWith(
+                                  fontStyle: FontStyle.italic,
                                 ),
-                    ],
-                  ),
+                              )
+                            : Text(
+                                'Go to level 1 first.',
+                                style: AppTextStyles.textStyle2.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                  ],
                 ),
                 Opacity(
                   opacity: open ? 1 : 0.5,

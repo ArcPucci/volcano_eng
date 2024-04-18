@@ -9,13 +9,22 @@ class MaterialCard extends StatelessWidget {
     super.key,
     required this.studyMaterial,
     this.onTap,
+    this.premium = false,
+    this.open = false,
   });
 
   final VoidCallback? onTap;
   final StudyMaterial studyMaterial;
+  final bool premium;
+  final bool open;
 
   @override
   Widget build(BuildContext context) {
+    final opacity = premium || open
+        ? 1.0
+        : premium
+            ? 1.0
+            : 0.5;
     return GestureDetector(
       onTap: onTap,
       child: BlurredBox(
@@ -45,20 +54,43 @@ class MaterialCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        studyMaterial.title,
-                        style: AppTextStyles.textStyle8,
-                      ),
-                      Text(
-                        '${studyMaterial.materials.length} Files',
-                        style: AppTextStyles.textStyle2.copyWith(
-                          color: AppTheme.ginger,
-                          fontStyle: FontStyle.italic,
+                      Opacity(
+                        opacity: opacity,
+                        child: Text(
+                          studyMaterial.title,
+                          style: AppTextStyles.textStyle8,
                         ),
                       ),
+                      if (!premium && studyMaterial.isPremium)
+                        Text(
+                          'To unlock this level, buy Premium!',
+                          style: AppTextStyles.textStyle2.copyWith(
+                            color: AppTheme.ginger,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      if (!studyMaterial.isPremium && !open && !premium)
+                        Text(
+                          'Go to level 1 first.',
+                          style: AppTextStyles.textStyle2.copyWith(
+                            color: AppTheme.ginger,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      if (premium || (open && !studyMaterial.isPremium))
+                        Text(
+                          '${studyMaterial.materials.length} Files',
+                          style: AppTextStyles.textStyle2.copyWith(
+                            color: AppTheme.ginger,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
                     ],
                   ),
-                  LevelIndicator(level: studyMaterial.complexity),
+                  Opacity(
+                    opacity: opacity,
+                    child: LevelIndicator(level: studyMaterial.complexity),
+                  ),
                 ],
               ),
             ),

@@ -71,7 +71,7 @@ class QuizCard extends StatelessWidget {
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                      if (!available)
+                      if (!available && !quiz.premium)
                         Text(
                           'Go to level 1 first.',
                           style: AppTextStyles.textStyle2.copyWith(

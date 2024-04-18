@@ -62,7 +62,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
   Widget _buildFirstBody() {
     return _buildBody(
       Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -100,7 +100,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
   Widget _buildSecondBody() {
     return _buildBody(
       Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
@@ -139,9 +139,9 @@ class _PreExamScreenState extends State<PreExamScreen> {
     return Center(
       child: BlurredBox(
         height: 543.h,
-        padding: EdgeInsets.symmetric(vertical: 16.h),
         child: Column(
           children: [
+            SizedBox(height: 16.h),
             SizedBox(
               width: 334.w,
               height: 336.h,
@@ -176,7 +176,6 @@ class _PreExamScreenState extends State<PreExamScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 16.h),
             Expanded(child: child),
           ],
         ),

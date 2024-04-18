@@ -32,13 +32,10 @@ class MaterialScreen extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: WidgetZoom(
-                            heroAnimationTag: 'tag',
-                            zoomWidget: Image.asset(
-                              material,
-                              width: 343.w,
-                              fit: BoxFit.fitWidth,
-                            ),
+                          child: Image.asset(
+                            material,
+                            width: 343.w,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
                         Positioned(
@@ -49,6 +46,17 @@ class MaterialScreen extends StatelessWidget {
                             width: 24.w,
                             height: 24.h,
                             fit: BoxFit.contain,
+                          ),
+                        ),
+                        Opacity(
+                          opacity: 0,
+                          child: WidgetZoom(
+                            heroAnimationTag: material,
+                            zoomWidget: Image.asset(
+                              material,
+                              width: 343.w,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                       ],

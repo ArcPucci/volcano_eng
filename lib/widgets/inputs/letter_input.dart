@@ -19,6 +19,7 @@ class LetterInput extends StatefulWidget {
 
 class _LetterInputState extends State<LetterInput> {
   final controllers = <TextEditingController>[];
+  final focusNodes = <FocusNode>[];
   String text = '';
 
   @override
@@ -26,6 +27,7 @@ class _LetterInputState extends State<LetterInput> {
     super.initState();
     text = widget.text.replaceAll(' ', '');
     for (int i = 0; i < text.length; i++) {
+      focusNodes.add(FocusNode());
       controllers.add(TextEditingController());
       controllers.last.addListener(() => widget.onChanged(onChanged()));
     }
@@ -62,6 +64,7 @@ class _LetterInputState extends State<LetterInput> {
                   width: 21.w,
                   child: TextField(
                     controller: controllers[index],
+                    focusNode: focusNodes[index],
                     style: AppTextStyles.textStyle8.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -72,6 +75,11 @@ class _LetterInputState extends State<LetterInput> {
                     decoration: const InputDecoration.collapsed(
                       hintText: '',
                     ),
+                    onChanged: (value) {
+                      if(value.isEmpty) return;
+                      if(index + 1 == controllers.length) return;
+                      focusNodes[index + 1].requestFocus();
+                    },
                   ),
                 ),
                 SizedBox(height: 2.h),
@@ -94,7 +102,7 @@ class _LetterInputState extends State<LetterInput> {
   String onChanged() {
     String str = '';
     for (final item in controllers) {
-      if(item.text.isEmpty) continue;
+      if (item.text.isEmpty) continue;
       str += item.text;
     }
     return str;

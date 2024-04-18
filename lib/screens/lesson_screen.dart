@@ -77,7 +77,7 @@ class LessonScreen extends StatelessWidget {
                               value.onNext(value2.answers);
                             },
                           ),
-                          SizedBox(height: 300.h),
+                          SizedBox(height: 150.h),
                         ],
                       ),
                     ),

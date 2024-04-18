@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/utils/utils.dart';
@@ -14,7 +15,11 @@ class QuizResultScreen extends StatelessWidget {
       builder: (BuildContext context, value, Widget? child) {
         return Column(
           children: [
-            SimpleAppBar(title: 'The Answers\n(${value.quiz.level} level)'),
+            SimpleAppBar(
+              title: 'The Answers\n(${value.quiz.level} level)',
+              hasBackButton: true,
+              onBack: context.pop,
+            ),
             SizedBox(height: 35.h),
             Text(
               'Congratulations!',
@@ -65,7 +70,8 @@ class QuizResultScreen extends StatelessWidget {
                                       ],
                                       Text(
                                         correctAnswer,
-                                        style: AppTextStyles.textStyle8.copyWith(
+                                        style:
+                                            AppTextStyles.textStyle8.copyWith(
                                           color: AppTheme.emerald,
                                         ),
                                       ),
