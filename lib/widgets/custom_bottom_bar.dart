@@ -28,7 +28,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   Widget build(BuildContext context) {
     return Container(
       width: 375.w,
-      height: 50.h,
+      height: 54.h,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(10),
@@ -53,7 +53,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               onTap: () => onTap(item),
               child: Container(
                 width: 54.w,
-                height: 43.h,
+                height: 47.h,
                 color: Colors.transparent,
                 alignment: Alignment.center,
                 child: _build(item, selected),
@@ -68,7 +68,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   Widget _build(TabBarItem item, bool selected) {
     if (selected) {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             item.asset,
@@ -76,6 +76,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             height: 24.r,
             fit: BoxFit.contain,
           ),
+          SizedBox(height: 5.h),
           Text(
             item.title,
             style: AppTextStyles.textStyle9,

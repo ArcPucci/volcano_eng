@@ -23,12 +23,9 @@ class LevelCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: BlurredBox(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 10.h,
-        ),
         child: Column(
           children: [
+            SizedBox(height: 10.h),
             Opacity(
               opacity: open ? 1 : 0.5,
               child: ClipRRect(
@@ -42,53 +39,57 @@ class LevelCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Opacity(
-                      opacity: open ? 1 : 0.5,
-                      child: Text(
-                        level.name,
-                        style: AppTextStyles.textStyle8,
+            SizedBox(
+              width: 323.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Opacity(
+                        opacity: open ? 1 : 0.5,
+                        child: Text(
+                          level.name,
+                          style: AppTextStyles.textStyle8,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.h),
-                    open
-                        ? Text(
-                            '${level.lessons.length} lessons',
-                            style: AppTextStyles.textStyle2.copyWith(
-                              color: AppTheme.ginger,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          )
-                        : level.premium
-                            ? Text(
-                                'To unlock this level, buy Premium!',
-                                style: AppTextStyles.textStyle2.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              )
-                            : Text(
-                                'Go to level 1 first.',
-                                style: AppTextStyles.textStyle2.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                ),
+                      SizedBox(height: 16.h),
+                      open
+                          ? Text(
+                              '${level.lessons.length} lessons',
+                              style: AppTextStyles.textStyle2.copyWith(
+                                color: AppTheme.ginger,
+                                fontStyle: FontStyle.italic,
                               ),
-                  ],
-                ),
-                Opacity(
-                  opacity: open ? 1 : 0.5,
-                  child: LevelIndicator(level: level.complexity),
-                ),
-              ],
+                            )
+                          : level.premium
+                              ? Text(
+                                  'To unlock this level, buy Premium!',
+                                  style: AppTextStyles.textStyle2.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                )
+                              : Text(
+                                  'Go to level 1 first.',
+                                  style: AppTextStyles.textStyle2.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                    ],
+                  ),
+                  Opacity(
+                    opacity: open ? 1 : 0.5,
+                    child: LevelIndicator(level: level.complexity),
+                  ),
+                ],
+              ),
             ),
+            SizedBox(height: 10.h),
             if (level.premium && !open) ...[
-              SizedBox(height: 16.h),
+              SizedBox(height: 6.h),
               CustomButton1(text: 'Buy Premium', onTap: onTap),
             ],
           ],

@@ -54,22 +54,19 @@ class QuizResultScreen extends StatelessWidget {
                               NumberBox(index: index, achieved: true),
                               SizedBox(width: 16.w),
                               Expanded(
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
+                                child: RichText(
+                                  text: TextSpan(
                                     children: [
-                                      if (!correct) ...[
-                                        Text(
-                                          yourAnswer,
+                                      if (!correct)
+                                        TextSpan(
+                                          text: yourAnswer + '\t',
                                           style:
                                               AppTextStyles.textStyle8.copyWith(
                                             color: Colors.white,
                                           ),
                                         ),
-                                        SizedBox(width: 16.w),
-                                      ],
-                                      Text(
-                                        correctAnswer,
+                                      TextSpan(
+                                        text: correctAnswer,
                                         style:
                                             AppTextStyles.textStyle8.copyWith(
                                           color: AppTheme.emerald,

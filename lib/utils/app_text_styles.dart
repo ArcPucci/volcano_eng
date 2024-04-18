@@ -54,9 +54,9 @@ class AppTextStyles {
     color: Colors.white,
   );
 
-  static final TextStyle  textStyle8 = TextStyle(
+  static final TextStyle textStyle8 = TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 19.r,
+    fontSize: 18.r,
     height: 24 / 20,
     color: Colors.white,
   );

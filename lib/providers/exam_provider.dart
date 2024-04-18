@@ -43,8 +43,8 @@ class ExamProvider extends ChangeNotifier {
   void init() {
     _currentIndex = 0;
     _answerOpen = false;
-    _examPassed = _service.getExam();
     _controller.clear();
+    _examPassed = false;
 
     notifyListeners();
   }
@@ -59,11 +59,12 @@ class ExamProvider extends ChangeNotifier {
 
     if (_currentIndex == examQuestions.length - 1) {
       Navigator.of(context).pop();
-      await _service.setExam();
-      _examPassed = true;
 
-      _router.go('/exam');
+      _examPassed = true;
       notifyListeners();
+
+      _router.go('/exam', extra: true);
+      _examPassed = false;
       return;
     }
 

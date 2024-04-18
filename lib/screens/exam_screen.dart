@@ -7,15 +7,16 @@ import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
 
 class ExamScreen extends StatelessWidget {
-  const ExamScreen({super.key});
+  const ExamScreen({
+    super.key,
+    required this.examPassed,
+  });
+
+  final bool examPassed;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ExamProvider>(
-      builder: (context, value, child) {
-        return value.examPassed ? _buildCertificateBody() : _buildBody(context);
-      },
-    );
+    return examPassed ? _buildCertificateBody() : _buildBody(context);
   }
 
   Widget _buildCertificateBody() {

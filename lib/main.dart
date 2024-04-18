@@ -101,8 +101,8 @@ class _MyAppState extends State<MyApp> {
           pageBuilder: (context, state, child) {
             final hasBottomBar = (state.fullPath != "/quizzes/quiz");
             final hasVolcano = (state.fullPath == "/quizzes/quiz");
-            final inverse = (state.fullPath == "/exam" &&
-                !widget.preferencesService.getExam());
+            final examPassed = state.extra as bool? ?? false;
+            final inverse = (state.fullPath == "/exam" && !examPassed);
             return buildPageWithDefaultTransition(
               context: context,
               state: state,
@@ -196,10 +196,11 @@ class _MyAppState extends State<MyApp> {
             GoRoute(
               path: '/exam',
               pageBuilder: (context, state) {
+                final examPassed = state.extra as bool? ?? false;
                 return buildPageWithDefaultTransition(
                   context: context,
                   state: state,
-                  child: const ExamScreen(),
+                  child: ExamScreen(examPassed: examPassed),
                 );
               },
             ),

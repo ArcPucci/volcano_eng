@@ -17,6 +17,8 @@ class ResultScreen extends StatelessWidget {
           children: [
             SimpleAppBar(
               title: '${value.numerator} Lesson Answers\n(${value.complexity})',
+              hasBackButton: true,
+              onBack: context.pop,
             ),
             Expanded(
               child: SingleChildScrollView(

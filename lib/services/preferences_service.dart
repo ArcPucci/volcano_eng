@@ -11,7 +11,6 @@ class PreferencesService {
   static const levelKey = "LESSONS_KEY";
   static const quizKey = "QUIZ_KEY";
   static const intermediateKey = "INTERMEDIATE";
-  static const examKey = "EXAM";
   static const materialKey = "MATERIAL";
 
   Future<void> setPremium() async {
@@ -68,13 +67,5 @@ class PreferencesService {
 
   bool firstEnterToIntermediate() {
     return preferences.getBool(intermediateKey) ?? true;
-  }
-
-  Future<void> setExam() async {
-    await preferences.setBool(examKey, true);
-  }
-
-  bool getExam() {
-    return preferences.getBool(examKey) ?? false;
   }
 }
