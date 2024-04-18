@@ -204,8 +204,9 @@ class QuizProvider extends ChangeNotifier {
           }
         } else {
           final temp = completion.answer.toLowerCase();
-          final temp2 = _controller.text.toLowerCase();
-          if (temp != temp2) {
+          final temp2 = _controller.text.toLowerCase().trim();
+          final list = temp.split('/');
+          if (list.first.trim() != temp2 && list.last.trim() != temp2) {
             _answers.last.add(_controller.text);
             _answers.last.add("(${completion.answer})");
           } else {
@@ -222,22 +223,24 @@ class QuizProvider extends ChangeNotifier {
         for (final item in temp) {
           for (int i = 0; i < reorder.options.length; i++) {
             if (item != alphabet[i]) continue;
-            answer2 += reorder.options[i];
+            answer2 += reorder.options[i].split(')').last;
             break;
           }
         }
 
         String answer3 = '';
         for (int i = 0; i < _selectedOptions.length; i++) {
-          answer3 += reorder.options[_selectedOptions[i]];
+          answer3 += reorder.options[_selectedOptions[i]].split(')').last;
         }
 
         if (answer2 == answer3 || answer == reorder.answer) {
-          _answers.last.add(reorder.answer);
+          _answers.last.add(answer);
         } else {
           _answers.last.add(answer);
           _answers.last.add("(${reorder.answer})");
         }
+        print(answer3);
+        print(answer2);
 
         break;
       case MultipleChoice():
