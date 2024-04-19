@@ -24,6 +24,7 @@ class ChooseTextWidget extends StatelessWidget {
             text: '$action the ',
             style: AppTextStyles.textStyle8.copyWith(
               fontWeight: FontWeight.w600,
+              letterSpacing: -0.3,
             ),
             children: [
               TextSpan(
@@ -31,6 +32,7 @@ class ChooseTextWidget extends StatelessWidget {
                 style: AppTextStyles.textStyle8.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppTheme.ginger,
+                  letterSpacing: -0.3,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -38,6 +40,7 @@ class ChooseTextWidget extends StatelessWidget {
                 text: ' you want to $purpose!',
                 style: AppTextStyles.textStyle8.copyWith(
                   fontWeight: FontWeight.w600,
+                  letterSpacing: -0.3,
                 ),
               ),
             ],

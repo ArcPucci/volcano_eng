@@ -33,14 +33,12 @@ class _QuizInputState extends State<QuizInput> {
               ),
               itemBuilder: (context, index) {
                 final selected = value.selectedOptions.contains(index);
-                return Center(
-                  child: QuizButton(
-                    text: multiChoice.answers[index],
-                    selected: selected,
-                    onTap: () => value.onSelect(
-                      index,
-                      multiChoice.multipleChoice,
-                    ),
+                return QuizButton(
+                  text: multiChoice.answers[index],
+                  selected: selected,
+                  onTap: () => value.onSelect(
+                    index,
+                    multiChoice.multipleChoice,
                   ),
                 );
               },

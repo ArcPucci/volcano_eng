@@ -107,7 +107,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     if (item.id == 2) {
       final level = widget.service.getLevel();
       final maxLevel = levels.last.id;
-      final value = Provider.of<ExamProvider>(context, listen: false);
+      final value = Provider.of<QuizProvider>(context, listen: false);
       if (level > maxLevel || value.premium) {
         final route = MaterialPageRoute(
           builder: (context) => const PreExamScreen(),

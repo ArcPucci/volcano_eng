@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:volcano_eng/providers/providers.dart';
 import 'package:volcano_eng/screens/screens.dart';
 import 'package:volcano_eng/utils/utils.dart';
 import 'package:volcano_eng/widgets/widgets.dart';
@@ -83,7 +85,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
               ),
               TextSpan(
                 text:
-                '. This is an unusual exam - you will answer the question in written form, after that you will see the example of an answer to this question. You are free of evaluation, points and corrections. Are you ready?!',
+                    '. This is an unusual exam - you will answer the question in written form, after that you will see the example of an answer to this question. You are free of evaluation, points and corrections. Are you ready?!',
                 style: AppTextStyles.textStyle2,
               ),
             ],
@@ -117,7 +119,7 @@ class _PreExamScreenState extends State<PreExamScreen> {
               ),
               TextSpan(
                 text:
-                'will cover all topics from the basic, intermediate, and advanced levels. It will include a mix of multiple-choice questions, short answers, and essay questions to assess comprehensive understanding and application of knowledge.',
+                    'will cover all topics from the basic, intermediate, and advanced levels. It will include a mix of multiple-choice questions, short answers, and essay questions to assess comprehensive understanding and application of knowledge.',
                 style: AppTextStyles.textStyle2,
               ),
             ],
@@ -178,6 +180,11 @@ class _PreExamScreenState extends State<PreExamScreen> {
 
   void onNext() {
     if (currentPage == 1) {
+      final provider = Provider.of<ExamProvider>(
+        context,
+        listen: false,
+      );
+      provider.init();
       final route = MaterialPageRoute(
         builder: (context) => const ExamQuestionsScreen(),
       );

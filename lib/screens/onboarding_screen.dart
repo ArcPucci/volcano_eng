@@ -142,12 +142,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           RichText(
             text: TextSpan(
               text: 'Nice to meet you in ',
-              style: AppTextStyles.textStyle1,
+              style: AppTextStyles.textStyle1.copyWith(
+                letterSpacing: -0.5,
+              ),
               children: [
                 TextSpan(
                   text: 'VolcanoEng.',
                   style: AppTextStyles.textStyle1.copyWith(
                     color: AppTheme.ginger,
+                    letterSpacing: -0.5,
                   ),
                 ),
               ],
