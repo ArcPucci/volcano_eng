@@ -52,7 +52,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             return GestureDetector(
               onTap: () => onTap(item),
               child: Container(
-                width: 54.w,
+                width: 58.w,
                 height: 47.h,
                 color: Colors.transparent,
                 alignment: Alignment.center,

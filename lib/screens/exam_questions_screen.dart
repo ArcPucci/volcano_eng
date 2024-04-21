@@ -17,7 +17,7 @@ class ExamQuestionsScreen extends StatelessWidget {
           child: Column(
             children: [
               SimpleAppBar(
-                title: 'Advanced level\n(Game 3)',
+                title: 'Cumulative Exam',
                 hasBackButton: true,
                 onBack: Navigator.of(context).pop,
               ),
