@@ -77,9 +77,14 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             fit: BoxFit.contain,
           ),
           SizedBox(height: 5.h),
-          Text(
-            item.title,
-            style: AppTextStyles.textStyle9,
+          SizedBox(
+            child: FittedBox(
+              fit: BoxFit.none,
+              child: Text(
+                item.title,
+                style: AppTextStyles.textStyle9,
+              ),
+            ),
           ),
         ],
       );
